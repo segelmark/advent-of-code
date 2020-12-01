@@ -32,7 +32,7 @@ def day1(data):
             j=j+1
         i=i+1
 
-def day2(data):
+def day1b(data):
     data = [int(x.strip()) for x in data]
     i=0
     j=0
@@ -59,10 +59,10 @@ data = f.read().splitlines()
 print(day1(data))
 
 # Make sure everything look OK again
-assert day2(validation1) == correctAnswer2
-assert day2(validation2) == correctAnswer2
+assert day1b(validation1) == correctAnswer2
+assert day1b(validation2) == correctAnswer2
 
-print(day2(data))
+print(day1b(data))
 
 end = time.time()
 print(end - start)
