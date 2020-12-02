@@ -7,12 +7,12 @@ def day2(data, rule):
     """ Checks how many times the given rule is valid in the data """
     passwords = [l.replace(':','').replace('-', ' ').split() for l in data]
     count=0
-    for [min, max, char, password] in passwords:
-        if(rule(min, max, char, password)):
+    for [pos1, pos2, char, password] in passwords:
+        if(rule(pos1, pos2, char, password)):
             count=count+1
     return count
 
-def rule1(pos1, pos2, char, password):
+def rule1([pos1, pos2, char, password]):
     if(password.count(char)<=int(pos2) and password.count(char)>=int(pos1)):
         return True
 
