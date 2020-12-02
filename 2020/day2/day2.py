@@ -3,36 +3,35 @@ validation = """1-3 a: abcde
 2-9 c: ccccccccc""".splitlines()
 
 
-
-def day2a(data):
+def day2(data, rule):
+    """ Checks how many times the given rule is valid in the data """
     passwords = [l.replace(':','').replace('-', ' ').split() for l in data]
     count=0
     for [min, max, char, password] in passwords:
-        # print(f"{min} {max} {char} {password}")
-        if(password.count(char)<=int(max) and password.count(char)>=int(min)):
+        if(rule(min, max, char, password)):
             count=count+1
     return count
 
-assert(day2a(validation) == 2)
+def rule1(pos1, pos2, char, password):
+    if(password.count(char)<=int(pos2) and password.count(char)>=int(pos1)):
+        return True
+
+def rule2(pos1, pos2, char, password):
+    val1=password[int(pos1)-1]
+    val2=password[int(pos2)-1]
+    if(bool(val1==char) ^ bool(val2==char)):
+        return True
+
+
+assert(day2(validation, rule1) == 2)
 
 f = open("input.txt", "r")
 data = f.read().splitlines()
 
-print(day2a(data))
-
-def day2b(data):
-    passwords = [l.replace(':','').replace('-', ' ').split() for l in data]
-    count=0
-    for [pos1, pos2, char, password] in passwords:
-        val1=password[int(pos1)-1]
-        print(val1)
-        val2=password[int(pos2)-1]
-        print(val2)
-        if(bool(val1==char) ^ bool(val2==char)):
-            count=count+1
-    return count
-
-assert(day2b(validation) == 1)
+print(day2(data, rule1))
 
 
-print(day2b(data))
+assert(day2(validation, rule2) == 1)
+
+
+print(day2(data, rule2))
