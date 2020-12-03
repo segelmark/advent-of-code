@@ -17,7 +17,7 @@ f = open("input.txt", "r")
 data = f.read().splitlines()
 
 """
-    Recursive implementation
+    Short recursive implementation
 """
 def navigate(geomap,rule,count=0,x=0):
     x=x+rule[0]
@@ -41,7 +41,7 @@ print(result)
 print(numpy.prod(result))
 
 """
-    First implementation
+    Makes a big map so we can render it if we want to
 """
 def repeat_to_length(string_to_expand, length):
     return list((string_to_expand * (int(length/len(string_to_expand))+1))[:length])
@@ -64,21 +64,19 @@ def traverse(travelmap,step_x,step_y):
         y=y+step_y
     return [travelmap, trees]
 
-def day3(data,render=False):
+def day3(data,rules,render=False):
     geomap = list(map(repeat_to_length,data,itertools.repeat(len(data)*7,len(data))))
-    rules=[[1,1],[3,1],[5,1],[7,1],[1,2]]
     result=[]
     for rule in rules:
         [treemap, trees] = traverse(geomap,rule[0],rule[1])
         result.append(trees)
-        if(render):
-            render_map(treemap)
-            print(trees)
+    if(render):
+        render_map(treemap)
     return result
 
-assert(day3(validation)==[2, 7, 3, 4, 2])
+assert(day3(validation,rules,1)==[2, 7, 3, 4, 2])
 
-result=day3(data)
+result=day3(data, rules)
 print(result)
 print(numpy.prod(result))
 
