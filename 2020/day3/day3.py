@@ -21,9 +21,7 @@ data = f.read().splitlines()
 """
 def navigate(geomap,rule,count=0,x=0):
     x=x+rule[0]
-    if x>=len(geomap[0]):
-        x -= len(geomap[0])
-    if(geomap[rule[1]][x]=="#"):
+    if(geomap[rule[1]][x%len(geomap[0])]=="#"):
         count=count+1
     if(len(geomap[rule[1]:])<=rule[1]):
         return count
