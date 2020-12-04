@@ -15,11 +15,11 @@ def validatePassport(data):
         valid=False
     elif not int(fields['iyr']) >= 2010 or not int(fields['iyr']) <= 2020: #iyr (Issue Year) - four digits; at least 2010 and at most 2020.
         valid=False
-    elif not int(fields['eyr']) >= 2020 or not int(fields['eyr']) <= 2030:     # eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+    elif not int(fields['eyr']) >= 2020 or not int(fields['eyr']) <= 2030: # eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
         valid=False
     elif not fields['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']: # ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
         valid=False
-    elif not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', fields['hcl']):    # hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+    elif not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', fields['hcl']): # hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
         valid=False 
     elif not re.search(r'^[0-9]{9}$', fields['pid']): # pid (Passport ID) - a nine-digit number, including leading zeroes.
         valid=False
@@ -34,7 +34,7 @@ def validatePassport(data):
     
     return { 'requiredFields': True, 'valid': valid }
 
-assert validatePassport(validation[0])["requiredFields"]==True #The first passport has all eight fields are present.
+assert validatePassport(validation[0])["requiredFields"]==True #The first passport has all eight fields present.
 assert validatePassport(validation[1])["requiredFields"]==False #The second passport is missing required hgt (the Height field).
 assert validatePassport(validation[2])["requiredFields"]==True #The third passport is only missing field is cid, temporarily to be treated as having all fields.
 assert validatePassport(validation[3])["requiredFields"]==False #The fourth passport is missing two fields, cid and required byr.
