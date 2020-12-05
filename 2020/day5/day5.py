@@ -87,7 +87,7 @@ print(maxSeat)
 occupied.sort()
 s = len(occupied)-1
 while(s>0):
-    if(occupied [s]-occupied[s-1]>1):
+    if(occupied[s]-occupied[s-1]>1):
         print(occupied[s]-1)
     s-=1
 
