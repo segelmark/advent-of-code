@@ -1,9 +1,3 @@
-"""
-
-# Every seat also has a unique seat ID:
-# multiply the row by 8, then add the column.
-# In this example, the seat has ID 44 * 8 + 5 = 357.
-"""
 
 """
 The first 7 characters will either be F or B
@@ -55,7 +49,8 @@ def getCol(data):
     return col[0]
 
 """
-Every seat also has a unique seat ID: multiply the row by 8, then add the column.
+Every seat also has a unique seat ID.
+Multiply the row by 8, then add the column.
 """
 def seatID(data):
     return getRow(data)*8 + getCol(data)
