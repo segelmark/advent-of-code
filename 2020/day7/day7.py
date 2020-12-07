@@ -6,8 +6,7 @@ def count_if(data,bagcolor):
         rule = line.split(" bags contain ")
         if bagcolor in rule[1]:
             relevantBags.add(rule[0])
-            more_bags=count_if(data,rule[0])
-            for bag in more_bags:
+            for bag in count_if(data,rule[0]):
                 relevantBags.add(bag)
     return relevantBags
 
@@ -22,10 +21,8 @@ def count_contents(data,bagcolor):
                 return 0
             contents=rule[1].replace("bags","bag").strip(" bag.").split(" bag, ")
             for content in contents:
-                num=content[0]
-                bag=content[2:]
-                count+=int(num)
-                count+=int(num)*count_contents(data,bag)
+                count+=int(content[0])
+                count+=int(content[0])*count_contents(data,content[2:])
     return count
 
 assert count_contents(validation,"shiny gold")==32
