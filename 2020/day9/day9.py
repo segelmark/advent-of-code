@@ -48,5 +48,66 @@ input = makeInt(data)
 
 invalid=findInvalid(input,25)
 print(invalid)
+import time
+
 print(encryptionWeakness(input,invalid))
 
+""" Benchmarking """
+
+start = time.time()
+
+for i in range(100):
+    encryptionWeakness(input,invalid)
+
+end = time.time()
+print("Lukas: "+str(end - start))
+
+def einar(data, requested):
+    for i in range(2,len(data)):
+        for n in range(len(data)):
+            rolling = data[n:n+i]
+            if sum(rolling) == requested:
+                return min(rolling)+max(rolling)
+
+def einar_improved(data, requested):
+    for i in range(2,len(data)):
+        for n in range(len(data)):
+            rolling = data[n:n+i]
+            summ=sum(rolling)
+            if summ >= requested:
+                if summ == requested:
+                    return min(rolling)+max(rolling)
+                else:
+                    break
+
+start = time.time()
+for i in range(100):
+    einar(input,invalid)
+
+end = time.time()
+print("Einar: "+str(end - start))
+
+start = time.time()
+for i in range(100):
+    einar_improved(input,invalid)
+
+end = time.time()
+print("Einar 2.0: "+str(end - start))
+
+def espen(data, requested):
+    for i in range(len(data)):
+        sum=0
+        for j,n in enumerate(data[i:]):
+            j+=i
+            sum+=n
+            if sum  == requested:
+                return min(data[i:j+1])+max(data[i:j+1])
+            elif sum > requested:
+                break
+
+start = time.time()
+for i in range(100):
+    espen(input,invalid)
+
+end = time.time()
+print("Espen: "+str(end - start))
