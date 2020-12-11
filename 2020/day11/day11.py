@@ -41,9 +41,9 @@ def applyRule(seat_map,visibility=0):
     for y, line in enumerate(seat_map):
         new_map.append(seat_map[y].copy())
         for x, char in enumerate(line):
-            if char == "L" and count_occupied_visible([y,x],seat_map,visibility)==0: # If a seat is empty (L) and there are no occupied seats adjacent to it, the seat becomes occupied.
+            if char == "L" and count_occupied_visible([y,x],seat_map,visibility)==0: # If a seat is empty (L) and there are no occupied in sight, it becomes occupied.
                 new_map[y][x]="#"
-            if char == "#" and count_occupied_visible([y,x],seat_map,visibility)>=5-visibility: # If a seat is occupied (#) and four or more seats adjacent to it are also occupied, the seat becomes empty.
+            if char == "#" and count_occupied_visible([y,x],seat_map,visibility)>=5-visibility: # If a seat is occupied (#) and four (or five depending on visibility) or more occupied seats in sight, the seat becomes empty.
                 new_map[y][x]="L"
     return new_map
 
@@ -62,7 +62,7 @@ def day11(data,visibility=0):
         seat_map=applyRule(seat_map,visibility)
         oldcount=newcount
         newcount=countCharacters("#",seat_map)
-    return countCharacters("#",seat_map)
+    return newcount
 
 assert day11(validationdata,1)==37 # Run with visibility limited to 1
 assert day11(validationdata)==26 # See further!
