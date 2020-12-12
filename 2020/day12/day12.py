@@ -30,13 +30,9 @@ assert runA(validationdata) == [-8, 17]
 
 def turnWaypoint(param,value,pos,wp):
     """ Action R now means to rotate the waypoint around the ship right (clockwise) the given number of degrees. """
-    if param=="L": # turning left is like turning right backwards
-        if(value==90): value=270
-        elif(value==270): value=90
-    if(value==90): wp=[-wp[1],wp[0]]
-    elif(value==180): wp=[-wp[0],-wp[1]]
-    elif(value==270): wp=[wp[1],-wp[0]]
-    return pos, wp
+    waypoint={"90":[-wp[1],wp[0]],"180":[-wp[0],-wp[1]],"270":[wp[1],-wp[0]]}
+    if param=="L" and (value==90 or value==270): value=(value+180)%360 # turning left is like turning right backwards
+    return pos, waypoint[str(value)]
 
 def moveToWaypoint(param,value,pos,waypoint):
     """ Action F now means to move to the waypoint a number of times equal to the given value. """
