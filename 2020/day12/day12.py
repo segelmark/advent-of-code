@@ -1,34 +1,18 @@
 from validationdata import *
 
 def navigate(param,value,pos):
-    """
-        Action N/S/E/W means to move north/south/east/west by the given value.
-    """
-    if(param=="N"): new_pos=[pos[0]+value,pos[1]]
-    elif(param=="E"): new_pos=[pos[0],pos[1]+value]
-    elif(param=="S"): new_pos=[pos[0]-value,pos[1]]
-    elif(param=="W"): new_pos=[pos[0],pos[1]-value]
-    else: print(f"Weird! Cannot navigate {param}")
-    return new_pos
+    """ Action N/S/E/W means to move ship or waypoint north/south/east/west by the given value. """
+    new_pos={"N":[1,0],"E":[0,1],"S":[-1,0],"W":[0,-1]}
+    return [pos[0]+new_pos[param][0]*value,pos[1]+new_pos[param][1]*value]
 
 def moveForward(param,value,pos,direction):
-    """
-        Action F means to move forward by the given value in the direction the ship is currently facing.
-    """
-    if(direction==0): bearing="N"
-    elif(direction==90): bearing="E"
-    elif(direction==180): bearing="S"
-    elif(direction==270): bearing="W"
-    else: print(f"Not straight enough {direction}")
-    return navigate(bearing,value,pos), direction
+    """ Action F means to move forward by the given value in the direction the ship is currently facing. """
+    bearing={"0":"N","90":"E","180":"S","270":"W"}
+    return navigate(bearing.get(str(direction)),value,pos), direction
 
 def turn(param,value,pos,direction):
-    """
-        # Action R/L means to turn right/left the given number of degrees.
-    """
-    if(param=="R"): return pos, (direction+value)%360 
-    elif(param=="L"): return pos, (direction-value)%360
-    else: print(f"Cannot turn: {param}")
+    """ Action R/L means to turn right/left the given number of degrees. """
+    return pos, (direction+value*(1 if param=="R" else -1))%360 
 
 def executeCommand(param,value,pos,direction):
     if(param in ["N","W","E","S"]): return navigate(param,value,pos), direction
@@ -45,16 +29,17 @@ def runA(instructions):
 assert runA(validationdata) == [-8, 17]
 
 def turnWaypoint(param,value,pos,wp):
-    if param=="L":
+    """ Action R now means to rotate the waypoint around the ship right (clockwise) the given number of degrees. """
+    if param=="L": # turning left is like turning right backwards
         if(value==90): value=270
         elif(value==270): value=90
     if(value==90): wp=[-wp[1],wp[0]]
     elif(value==180): wp=[-wp[0],-wp[1]]
     elif(value==270): wp=[wp[1],-wp[0]]
-    else: print(f"Cannot turn waypoint: {value}")
     return pos, wp
 
 def moveToWaypoint(param,value,pos,waypoint):
+    """ Action F now means to move to the waypoint a number of times equal to the given value. """
     return [pos[0]+waypoint[0]*value,pos[1]+waypoint[1]*value], waypoint
 
 def executeWaypoint(param,value,pos,waypoint):
@@ -63,7 +48,7 @@ def executeWaypoint(param,value,pos,waypoint):
     elif(param == "F"): return moveToWaypoint(param,value,pos,waypoint)
 
 def runB(instructions):
-    waypoint=[1,10] #relative to ship
+    waypoint=[1,10] # waypoint position relative to ship
     pos=[0,0]
     for inst in instructions:
         pos, waypoint = executeWaypoint(inst[0],int(inst[1:]),pos,waypoint)
