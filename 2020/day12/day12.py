@@ -12,21 +12,21 @@ def moveForward(param,value,pos,direction):
 
 def turn(param,value,pos,direction):
     """ Action R/L means to turn right/left the given number of degrees. """
-    return pos, (direction+value*(1 if param=="R" else -1))%360 
+    return pos, (direction+value*(-1 if param=="L" else 1))%360 
 
 def executeCommand(param,value,pos,direction):
     if(param in ["N","W","E","S"]): return navigate(param,value,pos), direction
     elif(param in ["L","R"]): return turn(param,value,pos,direction)
     elif(param == "F"): return moveForward(param,value,pos,direction)
 
-def runA(instructions):
+def runShip(instructions):
     pos=[0,0]
     direction=90
     for inst in instructions:
         pos, direction = executeCommand(inst[0],int(inst[1:]),pos,direction)
     return pos
 
-assert runA(validationdata) == [-8, 17]
+assert runShip(validationdata) == [-8, 17]
 
 def turnWaypoint(param,value,pos,wp):
     """ Action R now means to rotate the waypoint around the ship right (clockwise) the given number of degrees. """
@@ -43,24 +43,24 @@ def executeWaypoint(param,value,pos,waypoint):
     elif(param in ["L","R"]): return turnWaypoint(param,value,pos,waypoint)
     elif(param == "F"): return moveToWaypoint(param,value,pos,waypoint)
 
-def runB(instructions):
+def runWaypoint(instructions):
     waypoint=[1,10] # waypoint position relative to ship
     pos=[0,0]
     for inst in instructions:
         pos, waypoint = executeWaypoint(inst[0],int(inst[1:]),pos,waypoint)
     return pos
 
-assert runB(validationdata) == [-72, 214]
+assert runWaypoint(validationdata) == [-72, 214]
 
-def manhattan(instructions,func=runA):
+def manhattan(instructions,func=runShip):
     pos = func(instructions)
     return abs(pos[0])+abs(pos[1])
 
-assert manhattan(validationdata,runA) == 25
-assert manhattan(validationdata,runB) == 286
+assert manhattan(validationdata,runShip) == 25
+assert manhattan(validationdata,runWaypoint) == 286
 
 f = open("input.txt", "r")
 data = f.read().splitlines()
 
-print(manhattan(data,runA))
-print(manhattan(data,runB))
+print(manhattan(data,runShip)) # Part 1
+print(manhattan(data,runWaypoint)) # Part 2
