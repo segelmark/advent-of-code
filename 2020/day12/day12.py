@@ -25,24 +25,21 @@ def moveToWaypoint(action,value,pos,waypoint):
 
 def executeCommand(action,value,pos,waypoint,mode="default"):
     """ The right function depends on the action as well as the mode of vessel navigation """
-    if mode=="waypoint" and action in ["N","W","E","S"]:
-        return pos, navigate(action,value,waypoint)
-    elif mode=="default" and action in ["N","W","E","S"]:
+    if mode=="default" and action in ["N","W","E","S"]:
         return navigate(action,value,pos), waypoint
+    elif mode=="waypoint" and action in ["N","W","E","S"]:
+        return pos, navigate(action,value,waypoint)
     elif action in ["L","R"]:
         return pos, rotateWaypoint(action,value,pos,waypoint)
     elif action == "F":
         return moveToWaypoint(action,value,pos,waypoint), waypoint
 
 def sailShip(instructions,mode="default",waypoint=[0,1]):
-    """ Automatically sails ships according to instructions on discrete grids """
+    """ Automatically sails ships on discrete grids according to instructions """
     pos=[0,0]
     for inst in instructions:
         pos, waypoint = executeCommand(inst[0], int(inst[1:]), pos, waypoint, mode)
     return pos
-
-assert sailShip(validationdata)==[-8,17]
-assert sailShip(validationdata,"waypoint",[1,10]) == [-72, 214]
 
 def manhattan(data):
     return abs(data[0])+abs(data[1])
