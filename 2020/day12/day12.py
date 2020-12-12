@@ -52,15 +52,14 @@ def runWaypoint(instructions):
 
 assert runWaypoint(validationdata) == [-72, 214]
 
-def manhattan(instructions,func=runShip):
-    pos = func(instructions)
-    return abs(pos[0])+abs(pos[1])
+def manhattan(data):
+    return abs(data[0])+abs(data[1])
 
-assert manhattan(validationdata,runShip) == 25
-assert manhattan(validationdata,runWaypoint) == 286
+assert manhattan(runShip(validationdata)) == 25
+assert manhattan(runWaypoint(validationdata)) == 286
 
 f = open("input.txt", "r")
 data = f.read().splitlines()
 
-print(manhattan(data,runShip)) # Part 1
-print(manhattan(data,runWaypoint)) # Part 2
+print(manhattan(runShip(data))) # Part 1
+print(manhattan(runWaypoint(data))) # Part 2
