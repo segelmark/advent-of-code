@@ -23,11 +23,8 @@ def part1(data):
     bus_number, wait_time=next_bus(data)
     return bus_number*wait_time
 
-def findMatch(buses,constants,i=0,step=1):
+def findMatch(buses,constants,i,step=1):
     print(buses)
-    print(constants)
-    if i==0:
-        i+=step
     while(True):
         valid=True
         for j, bus in enumerate(buses):
@@ -35,7 +32,6 @@ def findMatch(buses,constants,i=0,step=1):
                 valid=False
         if valid:
             print(i)
-
             return i
         i+=step
 
@@ -44,7 +40,6 @@ def lcm(denominators):
 
 def part2(data):
     data=[int(l) if l!="x" else "x" for l in data.split(",")]
-    print(reduce((lambda x, y: x * y), [l for l in data if l!="x"]))
     buses=[]
     constants=[]
     for i, bus in enumerate(data):
@@ -72,4 +67,4 @@ f = open("input.txt", "r")
 data = f.read()
 
 print(part1(data))
-part2(str(data.splitlines()[1]))
+print(part2(str(data.splitlines()[1])))
