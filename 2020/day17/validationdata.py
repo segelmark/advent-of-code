@@ -1,0 +1,3 @@
+validationdata=""".#.
+..#
+###""".splitlines()
