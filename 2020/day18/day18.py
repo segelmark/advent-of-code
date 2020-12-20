@@ -37,45 +37,11 @@ def evaluate(e):
 for i, example in enumerate(validationdata):
     assert evaluate(example) == validationanswers[i]
 
-def addFirst(e):
-    print(e)
-    value=[None]*100
-    operator=[None]*100
-    stackLevel=0
-    i=0
-    while i<len(e):
-        if e[i].isdigit():
-            print(e)
-            if operator[stackLevel]:
-                new=value[stackLevel]+int(e[i])
-                print(new)
-                operator[stackLevel]=None
-                value[stackLevel]=None
-                e[i]=""
-                e[i-1]=""
-                e[i-2]=str(new)
-            else:
-                value[stackLevel]=int(e[i])
-        elif e[i]=="+":
-            operator[stackLevel]=True
-        elif e[i]=="(":     # Move down stack
-            stackLevel+=1
-        elif e[i]==")":     # Move up stack
-            operator[stackLevel]=None
-            value[stackLevel]=None
-            stackLevel-=1
-        i+=1
-    return e
-
-test=addFirst(format(validationdata[0]))
-print(test)
-print(evaluate(test))
-
 def calculateResultingSums(data,part=1):
     sum=0
     for e in data:
         expression=format(e)
-        if part==2: expression=addFirst(expression)
+        # if part==2: expression=addFirst(expression)
         sum+=evaluate(expression)
     return sum
 
@@ -84,4 +50,4 @@ data = f.read().splitlines()
 
 print(calculateResultingSums(data))
 
-assert calculateResultingSums(validationdata,2) == 231+51+46+1445+669060+23340
+# assert calculateResultingSums(validationdata,2) == 231+51+46+1445+669060+23340
