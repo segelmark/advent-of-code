@@ -41,7 +41,7 @@ def evaluate(e):
 for i, example in enumerate(validationdata):
     assert evaluate(example) == validationanswers[i]
 
-def multiply(e):
+def addFirst(e):
     print(e)
     operator=None
     value=None
@@ -49,7 +49,7 @@ def multiply(e):
     while i<len(e):
         if e[i].isdigit():
             if operator:
-                new=value*int(e[i])
+                new=value+int(e[i])
                 operator=None
                 value=None
                 e[i]=""
@@ -57,12 +57,14 @@ def multiply(e):
                 e[i-2]=str(new)
             else:
                 value=int(e[i])
-        elif e[i]=="*":
+        elif e[i]=="+":
             operator=True
         i+=1
     return e
 
-print(multiply(format(validationdata[0])))
+test=addFirst(format(validationdata[0]))
+print(test)
+print(evaluate(test))
 
 def calculateResultingSums(data,part=1):
     sum=0
