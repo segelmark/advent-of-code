@@ -1,4 +1,5 @@
 from validationdata import *
+import re
 
 def format(e):
     return e.replace(")"," )").replace("(","( ").split(" ")
@@ -49,5 +50,3 @@ f = open("input.txt", "r")
 data = f.read().splitlines()
 
 print(calculateResultingSums(data))
-
-# assert calculateResultingSums(validationdata,2) == 231+51+46+1445+669060+23340
