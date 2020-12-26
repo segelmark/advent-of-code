@@ -13,4 +13,3 @@ To learn more or participate yourself go to: https://adventofcode.com/
 * Get a better spaceship next time
 * Use Starlink for communications
 * Elon > Bezos for 🚀 
-! *********************** # **
