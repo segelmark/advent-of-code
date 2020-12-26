@@ -37,23 +37,26 @@ def uniqueFoodsPerAllergen(allergens):
 f = open("input.txt", "r")
 data = f.read().splitlines()
 
+""" Part 1 """
+
 food_list=parseData(data)
 allergens=overlapAllergens(food_list)
 print(allergens)
-unique=uniqueFoodsPerAllergen(allergens)
-print(unique)
-avoid=unique.values()
+avoid=uniqueFoodsPerAllergen(allergens)
+print(avoid)
 
 count=0
-for food in food_list:
-    for ingredient in food[0]:
-        if not ingredient in avoid:
+for item in food_list:
+    for ingredient in item[0]:
+        if not ingredient in avoid.values():
             count+=1
 print(count)
 
-sorted=sorted(unique.items())
+""" Part 2 """
+
+sorted=sorted(avoid.items())
 
 output=""
 for s in sorted:
     output+=s[1]+","
-print(output)
+print(output.strip(","))
