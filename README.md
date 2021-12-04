@@ -7,7 +7,7 @@ To learn more or participate yourself go to: https://adventofcode.com/
 ## Reflections
 ### [2020](/2020/)
 * Go somewhere else on vacation 🏝
-* Bring passport because lots of regexps never made anyone happy
+* Bring passport
 
 ### [2019](/2019/)
 * Get a better spaceship next time
