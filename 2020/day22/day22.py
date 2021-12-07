@@ -26,7 +26,7 @@ def playRound(player_cards,recursive=False):
         player_cards[1] += [p2, p1]
     return player_cards, winner
 
-def combat(player_cards,recursive=False,log=False):
+def combat(player_cards,recursive=False):
     round = 1
     historic = set()
     while player_cards[0] and player_cards[1]:
