@@ -7,10 +7,11 @@ To learn more or participate yourself go to: https://adventofcode.com/
 ## Reflections
 ### [2021](/2021/)
  * The seaweed is always greener insomebody else's lake 🌊
- * You dream about going up there but that is a big mistake
- * Just look at the world around you right here on the ocean floor 🐚
- * Darling, it's better down where it's wetter 💦
- * Up on the shore, they work all day out in the sun they slave away
+ * You dream about going up there, but that is a big mistake
+ * Just look at the world around you, right here on the ocean floor 🐚
+ * Such wonderful things surround you, what more are you lookin' for?
+ * Darling, it's better, down where it's wetter 💦
+ * Up on the shore, they work all day, out in the sun they slave away
  * While we devotin' full time to floatin'
  * Under the sea 🐠
 
