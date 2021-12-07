@@ -3,7 +3,7 @@ validation = """16,1,2,0,4,2,7,1,2,14"""
 correctAnswer1 = 37
 correctAnswer2 = 168
 
-def align_to(pos,data,costly=True):
+def align_to(pos,data,costly):
     count=0
     for num in data:
         if not costly:
