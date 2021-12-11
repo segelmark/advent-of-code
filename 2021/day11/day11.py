@@ -13,13 +13,12 @@ correctAnswer1 = 1656
 correctAnswer2 = 195
 
 def increment(data,i,j):
-    if(data[i][j]!=0):
+    if(data[i][j]!=0): # An octopus can only flash at most once per step.
         data[i][j]+=1
     return data
         
 def flash(data,i,j):
-    data[i][j]=0
-    # This increases the energy level of all adjacent octopuses by 1, including octopuses that are diagonally adjacent.
+     # This increases the energy level of all adjacent octopuses by 1, including octopuses that are diagonally adjacent.
     if(i>0):
         if(j>0): data=increment(data,i-1,j-1)
         data=increment(data,i-1,j)
@@ -32,8 +31,10 @@ def flash(data,i,j):
         if(j>0): data=increment(data,i+1,j-1)
         data=increment(data,i+1,j)
         if(j<9): data=increment(data,i+1,j+1)
-    return data
+    
+    data[i][j]=0 # Any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash.
 
+    return data
 
 def counter(data,what=9):
     count=0
@@ -53,21 +54,21 @@ def day11(data,iterations=9999):
         for i in range(10):
             for j in range(10):
                 data[i][j]+=1      # First, the energy level of each octopus increases by 1.
+        
+        while(counter(data,9)): # This process continues as long as new octopuses keep having their energy level increased beyond 9.
+            for i in range(10):
+                for j in range(10):
+                    if(data[i][j]>9):           # Then, any octopus with an energy level greater than 9 flashes.
+                        data=flash(data,i,j)    # If this causes an octopus to have an energy level greater than 9, it also flashes.
+
         count=0
         for line in data: count+=line.count(0)
         
-        while(counter(data,9)):
-            for i in range(10):
-                for j in range(10):
-                    if(data[i][j]>9):
-                        data=flash(data,i,j)
-
-        for line in data: count+=line.count(0)
         round+=1
         if(count==100):
             return round
-        total_count+=count
 
+        total_count+=count
     return total_count
 
 # Make sure everything looks OK
