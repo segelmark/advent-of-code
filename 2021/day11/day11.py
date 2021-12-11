@@ -13,8 +13,7 @@ correctAnswer1 = 1656
 correctAnswer2 = 195
 
 def increment(data,i,j):
-    if(data[i][j]!=0): # An octopus can only flash at most once per step.
-        data[i][j]+=1
+    if(data[i][j]!=0): data[i][j]+=1 # An octopus can only flash at most once per step.
     return data
         
 def flash(data,i,j):
