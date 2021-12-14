@@ -17,7 +17,8 @@ def getBasinSize(data,i,j,basin={}):
     else:
         basin[(i,j)]=False
     if i<len(data)-1 and number>=data[i+1][j]:
-        lowest=False
+        basin[(i-1,j)]=True
+        dead_end=False
     if j>0 and number>=data[i][j-1]:
         lowest=False
     if j<len(line)-1 and number>=data[i][j+1]:

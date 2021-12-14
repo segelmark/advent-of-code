@@ -1,10 +1,5 @@
-validation = """start-A
-start-b
-A-c
-A-b
-b-d
-A-end
-b-end""".splitlines()
+validation = """
+""".splitlines()
 
 correctAnswer1 = 5
 #correctAnswer2 = 5

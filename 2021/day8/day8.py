@@ -15,6 +15,7 @@ correctAnswer2a = 5353
 correctAnswer2b = 61229
 
 original = ['abcefg','cf','acdeg', 'acdfg', 'bcdf', 'abdfg', 'abdefg', 'acf', 'abcdefg', 'abcdfg']
+# original = ['cagedb', 'ab', 'gcdfa', 'gcdfa', 'eafb', 'cdfbe', 'cdfgeb', 'dab', 'acedgfb', 'cefabd']
 
 # 1=cf, 4=bcdf, 7, 8
 
@@ -26,34 +27,37 @@ def day8(data):
     for line in data:
         key = {}
         for segment in line:
+            number=''
             for code in segment:
                 if(len(code)==2): #1
-                    key[code[0]]=original[1][0]
-                    key[code[1]]=original[1][1]
-                    count+=1
+                    key[1]=[c for c in code]
+                    if(segment==line[1]):
+                        count+=1
+                        number+='1'
                 elif(len(code)==4): #4
-                    key[code[0]]=original[4][0]
-                    key[code[1]]=original[4][1]
-                    key[code[2]]=original[4][2]
-                    key[code[3]]=original[4][3]
-                    count+=1
+                    key[4]=[c for c in code]
+                    if(segment==line[1]):
+                        count+=1
+                        number+='1'
                 elif(len(code)==3): #7
-                    key[code[0]]=original[7][0]
-                    key[code[1]]=original[7][1]
-                    key[code[2]]=original[7][2]
-                    count+=1
+                    key[7]=[c for c in code]
+                    if(segment==line[1]):
+                        count+=1
+                        number+='7'
                 elif(len(code)==7): #8
-                    key[code[0]]=original[8][0]
-                    key[code[1]]=original[8][1]
-                    key[code[2]]=original[8][2]
-                    key[code[3]]=original[8][3]
-                    key[code[4]]=original[8][4]
-                    key[code[5]]=original[8][5]
-                    key[code[6]]=original[8][6]
-                    count+=1
+                    key[8]=[c for c in code]
+                    if(segment==line[1]):count+=1
+                elif(len(code)==5 and segment==line[1]):
+                    if(key[1][0] in segment and key[1][1]):
+                        number+='3'
+                    
+        correct={}
+        for char in key[7]:
+            if not char in key[1]:
+                correct['a']=char
         new=[]
         for number in line[1]:
-            for char, code in key.items():
+            for char, code in correct.items():
                 number=number.replace(code, char)
             new.append(number)
         print(new)
